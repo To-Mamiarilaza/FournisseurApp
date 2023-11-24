@@ -10,6 +10,7 @@ package model.communication;
  */
 public class ClientInfo {
     /// Field
+    int idClient;
     String clientName;
     String clientAddress;
     String responsableContact;

@@ -18,8 +18,8 @@ import java.util.List;
  *
  * @author To Mamiarilaza
  */
-@WebServlet(name = "ProformaRequest", urlPatterns = {"/proforma-request"})
-public class ProformaRequest extends HttpServlet {
+@WebServlet(name = "ProformaRequestServlet", urlPatterns = {"/proforma-request"})
+public class ProformaRequestServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

@@ -10,11 +10,20 @@ package model.communication;
  */
 public class ArticleRequestDTO {
     /// Field
-    int idArticle;
+    int idProformaRequestSupplier;
+    int idArticle;  // ID Article du client
     String articleName;
     double quantity;
     
     /// Getter and setter
+
+    public int getIdProformaRequestSupplier() {
+        return idProformaRequestSupplier;
+    }
+
+    public void setIdProformaRequestSupplier(int idProformaRequestSupplier) {
+        this.idProformaRequestSupplier = idProformaRequestSupplier;
+    }
 
     public int getIdArticle() {
         return idArticle;
@@ -42,7 +51,8 @@ public class ArticleRequestDTO {
     
     /// Constructor
 
-    public ArticleRequestDTO(int idArticle, String articleName, double quantity) {
+    public ArticleRequestDTO(int idProformaRequestSupplier, int idArticle, String articleName, double quantity) {
+        this.idProformaRequestSupplier = idProformaRequestSupplier;
         this.idArticle = idArticle;
         this.articleName = articleName;
         this.quantity = quantity;
