@@ -4,10 +4,11 @@
     Author     : To Mamiarilaza
 --%>
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@page import="java.util.List" %>
+<%@page import="java.util.List, model.base.Utilisateur" %>
 <% 
     List<String> css = (List<String>) request.getAttribute("css");
     List<String> js = (List<String>) request.getAttribute("js");
+    Utilisateur user = (Utilisateur) request.getAttribute("utilisateur");
 %>
 
 <!doctype html>
@@ -56,7 +57,7 @@
                                 </a>
                             </li>
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="./movement" aria-expanded="false">
+                                <a class="sidebar-link" href="./mouvement" aria-expanded="false">
                                     <span>
                                         <i class="ti ti-login"></i>
                                     </span>
@@ -139,7 +140,7 @@
                 </header>
                 <!--  Header End -->
                 <div class="container-fluid">
-
+                    <h3>Societe : <%= user.getSociety().getSociety() %></h3>
                     <jsp:include page="${contentPage}" />
 
                 </div>

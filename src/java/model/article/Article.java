@@ -14,6 +14,7 @@ import generalisation.annotations.DBTable;
  */
 @DBTable(name = "article", sequenceName = "seq_article")
 public class Article {
+
     @DBField(name = "id_article", isPrimaryKey = true)
     int idArticle;
     @DBField(name = "code")
@@ -22,6 +23,10 @@ public class Article {
     String description;
     @DBField(name = "designation")
     String designation;
+
+    @DBField(name = "price")
+    double price;
+
     @DBField(name = "id_category", isForeignKey = true)
     Category category;
     @DBField(name = "tva")
@@ -30,8 +35,27 @@ public class Article {
     Unity unity;
     @DBField(name = "status")
     int status;
-    
+
 ///Getters et setters
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setPrice(String price) throws Exception {
+        if (price == null) {
+            throw new Exception("Aucune valeur du prix saisie");
+        }
+        Double priceParsed = Double.valueOf(price);
+        if (priceParsed < 0) {
+            throw new Exception("La valeur du prix doit etre posiive");
+        }
+        this.setPrice(priceParsed);
+    }
+
     public int getIdArticle() {
         return idArticle;
     }
@@ -43,8 +67,9 @@ public class Article {
     public String getCode() {
         return code;
     }
+
     public void setCode(String code) throws Exception {
-        if(code.trim().equals("") || code == null) {
+        if (code == null) {
             throw new Exception("Aucune valeur de code saisie");
         }
         this.code = code;
@@ -53,8 +78,9 @@ public class Article {
     public String getDescription() {
         return description;
     }
+
     public void setDescription(String description) throws Exception {
-        if(description.trim().equals("") || description == null) {
+        if (description == null) {
             throw new Exception("Aucune valeur de description saisie");
         }
         this.description = description;
@@ -63,8 +89,9 @@ public class Article {
     public String getDesignation() {
         return designation;
     }
+
     public void setDesignation(String designation) throws Exception {
-        if(designation.trim().equals("") || designation == null) {
+        if ( designation == null) {
             throw new Exception("Aucune valeur de designation saisie");
         }
         this.designation = designation;
@@ -73,11 +100,13 @@ public class Article {
     public Category getCategory() {
         return category;
     }
+
     public void setCategory(Category category) {
         this.category = category;
     }
+
     public void setCategory(String category) throws Exception {
-        if(category.trim().equals("") || category == null) {
+        if (category == null) {
             throw new Exception("Aucune valeur de categorie saisie");
         }
         Integer idCategory = Integer.valueOf(category);
@@ -88,15 +117,17 @@ public class Article {
     public Double getTva() {
         return tva;
     }
+
     public void setTva(Double tva) {
         this.tva = tva;
     }
+
     public void setTva(String tva) throws Exception {
-        if(tva.trim().equals("") || tva == null) {
+        if (tva == null) {
             throw new Exception("Aucune valeur de tva saisie");
         }
         Double tvaParsed = Double.valueOf(tva);
-        if(tvaParsed < 0) {
+        if (tvaParsed < 0) {
             throw new Exception("La valeur du tva doit etre posiive");
         }
         this.setTva(tvaParsed);
@@ -105,11 +136,13 @@ public class Article {
     public Unity getUnity() {
         return unity;
     }
+
     public void setUnity(Unity unity) {
         this.unity = unity;
     }
+
     public void setUnity(String unity) throws Exception {
-        if(unity.trim().equals("") || unity == null) {
+        if (unity == null) {
             throw new Exception("Aucune valeur de unity saisie");
         }
         Integer idUnity = Integer.valueOf(unity);
@@ -120,49 +153,41 @@ public class Article {
     public int getStatus() {
         return status;
     }
+
     public void setStatus(int status) {
         this.status = status;
     }
-    
-///Constructors
 
+///Constructors
     public Article() {
     }
 
-    public Article(int idArticle, String code, String description, String designation, Category category, Double tva, Unity unity, int status) {
+    public Article(int idArticle, String code, String description, String designation, double price, Category category, Double tva, Unity unity, int status) {
         this.idArticle = idArticle;
         this.code = code;
         this.description = description;
         this.designation = designation;
+        this.price = price;
         this.category = category;
         this.tva = tva;
         this.unity = unity;
         this.status = status;
     }
 
-    public Article(String code, String description, String designation, Category category, Double tva, Unity unity, int status) {
-        this.code = code;
-        this.description = description;
-        this.designation = designation;
-        this.category = category;
-        this.tva = tva;
-        this.unity = unity;
-        this.status = status;
-    }
-    
-    public Article(String code, String description, String designation, String category, String tva, String unity) throws Exception {
+    public Article(String code, String description, String designation, String price, String category, String tva, String unity) throws Exception {
         try {
             this.setCode(code);
             this.setDescription(description);
             this.setDesignation(designation);
             this.setCategory(category);
             this.setTva(tva);
+            this.setPrice(price);
             this.setUnity(unity);
             this.setStatus(1);
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw e;
         }
     }
 ///Fonctions
-    
+
 }

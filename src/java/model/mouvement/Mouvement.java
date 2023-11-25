@@ -5,11 +5,10 @@
  */
 package model.mouvement;
 
-import generalisation.GenericDAO.GenericDAO;
 import generalisation.annotations.DBField;
 import generalisation.annotations.DBTable;
 import java.sql.Date;
-import java.util.List;
+import java.time.LocalDate;
 import model.article.Article;
 
 /**
@@ -23,7 +22,7 @@ public class Mouvement {
     int idMouvement;
 
     @DBField(name = "date_mouvement")
-    Date dateMouvement;
+    LocalDate dateMouvement;
 
     @DBField(name = "id_article", isForeignKey = true)
     Article article;
@@ -48,11 +47,11 @@ public class Mouvement {
         this.idMouvement = idMouvement;
     }
 
-    public Date getDateMouvement() {
+    public LocalDate getDateMouvement() {
         return dateMouvement;
     }
 
-    public void setDateMouvement(Date dateMouvement) {
+    public void setDateMouvement(LocalDate dateMouvement) {
         this.dateMouvement = dateMouvement;
     }
 
@@ -88,8 +87,25 @@ public class Mouvement {
         this.prixUnitaire = prixUnitaire;
     }
 
-    public Mouvement(int idMouvement, Date dateMouvement, Article article, int typeMouvement, double quantite, double prixUnitaire, int status) {
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public Mouvement(int idMouvement, LocalDate dateMouvement, Article article, int typeMouvement, double quantite, double prixUnitaire, int status) {
         this.idMouvement = idMouvement;
+        this.dateMouvement = dateMouvement;
+        this.article = article;
+        this.typeMouvement = typeMouvement;
+        this.quantite = quantite;
+        this.prixUnitaire = prixUnitaire;
+        this.status = status;
+    }
+
+    public Mouvement(LocalDate dateMouvement, Article article, int typeMouvement, double quantite, double prixUnitaire, int status) {
         this.dateMouvement = dateMouvement;
         this.article = article;
         this.typeMouvement = typeMouvement;

@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import model.base.Utilisateur;
 
 /**
  *
@@ -67,7 +68,9 @@ public class HomeServlet extends HttpServlet {
 
             request.setAttribute("css", css);
             request.setAttribute("js", js);
-
+            
+            Utilisateur user = (Utilisateur) request.getSession().getAttribute("utilisateur");
+            request.setAttribute("utilisateur", user);
             // Page definition
             request.setAttribute("title", "Empty page");
             request.setAttribute("contentPage", "");
