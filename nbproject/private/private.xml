@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/To/Etude/S5/Mr_Tovo/FournisseurApp/web/pages/article/article.jsp</file>
+            <file>file:/D:/To/Etude/S5/Mr_Tovo/FournisseurApp/web/pages/proforma/proformaDetail.jsp</file>
+            <file>file:/D:/To/Etude/S5/Mr_Tovo/FournisseurApp/web/pages/article/articleMapping.jsp</file>
+            <file>file:/D:/To/Etude/S5/Mr_Tovo/FournisseurApp/web/index.jsp</file>
+            <file>file:/D:/To/Etude/S5/Mr_Tovo/FournisseurApp/web/pages/auth/login.jsp</file>
+            <file>file:/D:/To/Etude/S5/Mr_Tovo/FournisseurApp/web/template.jsp</file>
+            <file>file:/D:/To/Etude/S5/Mr_Tovo/FournisseurApp/src/java/servlet/proforma/ProformaDetailServlet.java</file>
+            <file>file:/D:/To/Etude/S5/Mr_Tovo/FournisseurApp/web/pages/proforma/proformaRequest.jsp</file>
+            <file>file:/D:/To/Etude/S5/Mr_Tovo/FournisseurApp/src/java/servlet/auth/LoginServlet.java</file>
+            <file>file:/D:/To/Etude/S5/Mr_Tovo/FournisseurApp/src/java/servlet/article/EtatStockServlet.java</file>
+            <file>file:/D:/To/Etude/S5/Mr_Tovo/FournisseurApp/src/java/servlet/article/ArticleMappingServlet.java</file>
+            <file>file:/D:/To/Etude/S5/Mr_Tovo/FournisseurApp/web/pages/article/etatStock.jsp</file>
+            <file>file:/D:/To/Etude/S5/Mr_Tovo/FournisseurApp/src/java/servlet/article/ArticleServlet.java</file>
+            <file>file:/D:/To/Etude/S5/Mr_Tovo/FournisseurApp/src/java/servlet/auth/HomeServlet.java</file>
+            <file>file:/D:/To/Etude/S5/Mr_Tovo/FournisseurApp/web/pages/article/movement.jsp</file>
+            <file>file:/D:/To/Etude/S5/Mr_Tovo/FournisseurApp/src/java/servlet/proforma/ProformaRequest.java</file>
+            <file>file:/D:/To/Etude/S5/Mr_Tovo/FournisseurApp/src/java/servlet/article/MovementServlet.java</file>
+        </group>
+    </open-files>
+</project-private>
