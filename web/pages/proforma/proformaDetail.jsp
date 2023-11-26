@@ -15,9 +15,6 @@
         </div>
         <div class="col-md-6">
           <h5 class="card-title fw-semibold mb-4">Client</h5>
-          <p class="mb-1">Nom : <strong class="mx-2">Huile de bongolava</strong></p>
-          <p class="mb-1">Adresse : <strong class="mx-2">Tsiroanomandidy</strong></p>
-          <p class="mb-1">Contact du responsable : <strong class="mx-2">+261 34 26 318 45</strong></p>
           <p class="mb-1">Mail : <strong class="mx-2">bongoHuile@gmail.com</strong></p>
         </div>
         <table class="table mt-5">

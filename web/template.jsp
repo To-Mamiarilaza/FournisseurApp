@@ -81,7 +81,7 @@
                                     <span>
                                         <i class="ti ti-file-description"></i>
                                     </span>
-                                    <span class="hide-menu">Demande proforma</span>
+                                    <span class="hide-menu">Envoie de proforma</span>
                                 </a>
                             </li>
                         </ul>
@@ -140,7 +140,6 @@
                 </header>
                 <!--  Header End -->
                 <div class="container-fluid">
-                    <h3>Societe : <%= user.getSociety().getSociety() %></h3>
                     <jsp:include page="${contentPage}" />
 
                 </div>
