@@ -151,6 +151,7 @@ CREATE TABLE mouvement(
     prix_unitaire double precision,
     status integer -- mouvement cree : 1 , valider : 11, refuser : 0
 );
+
 ALTER SEQUENCE seq_mouvement RESTART WITH 1;
 INSERT INTO mouvement (date_mouvement, id_article, type_mouvement, quantite, prix_unitaire, status) values 
        ('2023-11-22', 1, 1, 50, 700, 11),
