@@ -25,3 +25,5 @@ replay_pid*
 /nbproject/private/
 /build/
 /dist/
+/src/java/model/generalisation/build/
+/src/java/model/generalisation/nbproject/private/
