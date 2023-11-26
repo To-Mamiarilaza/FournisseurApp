@@ -31,25 +31,25 @@
                   <img src="./assets/images/logos/dark-logo.svg" width="180" alt="">
                 </a>
                 <p class="text-center">Bienvenue Fournisseur</p>
-                <form>
+                <form action="./login" method="post">
                   <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <label for="exampleInputEmail1" class="form-label">Nom d'utilisateur</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" name="username">
                   </div>
                   <div class="mb-4">
                     <label for="exampleInputPassword1" class="form-label">Mot de passe</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1">
+                    <input type="password" class="form-control" id="exampleInputPassword1" name="password">
                   </div>
                   <div class="d-flex align-items-center justify-content-between mb-4">
                     <div class="form-check">
-                      <input class="form-check-input primary" type="checkbox" value="" id="flexCheckChecked" checked>
+                      <input class="form-check-input primary" type="checkbox" value="" id="flexCheckChecked">
                       <label class="form-check-label text-dark" for="flexCheckChecked">
                         Remeber this Device
                       </label>
                     </div>
-                    <a class="text-primary fw-bold" href="./index.html">Forgot Password ?</a>
-                  </div>
-                  <a href="./index.html" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign In</a>
+                    <a class="text-primary fw-bold" href="#">Forgot Password ?</a>
+                  </div> 
+                    <input type='submit' value='Sign In' class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">
                 </form>
               </div>
             </div>

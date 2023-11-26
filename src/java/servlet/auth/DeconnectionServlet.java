@@ -11,16 +11,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
-import model.base.Utilisateur;
 
 /**
  *
  * @author To Mamiarilaza
  */
-@WebServlet(name = "HomeServlet", urlPatterns = {"/home"})
-public class HomeServlet extends HttpServlet {
+@WebServlet(name = "DeconnectionServlet", urlPatterns = {"/deconnection"})
+public class DeconnectionServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +36,10 @@ public class HomeServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HomeServlet</title>");
+            out.println("<title>Servlet DeconnectionServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet HomeServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DeconnectionServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,25 +57,8 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            // All required assets
-            List<String> css = new ArrayList<>();
-
-            List<String> js = new ArrayList<>();
-
-            request.setAttribute("css", css);
-            request.setAttribute("js", js);
-            
-            Utilisateur user = (Utilisateur) request.getSession().getAttribute("utilisateur");
-            request.setAttribute("utilisateur", user);
-            // Page definition
-            request.setAttribute("title", "Empty page");
-            request.setAttribute("contentPage", "");
-
-            request.getRequestDispatcher("./template.jsp").forward(request, response);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        request.getSession().invalidate();
+        response.sendRedirect("./login");
     }
 
     /**
