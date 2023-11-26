@@ -6,12 +6,14 @@ package servlet.article;
 
 import generalisation.GenericDAO.GenericDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,14 +21,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.article.Article;
 import model.base.Utilisateur;
-import model.mouvement.EtatStock;
+import model.mouvement.Mouvement;
 
 /**
  *
  * @author To Mamiarilaza
  */
-@WebServlet(name = "EtatStockServlet", urlPatterns = {"/etat-stock"})
-public class EtatStockServlet extends HttpServlet {
+@WebServlet(name = "MovementServlet", urlPatterns = {"/mouvement"})
+public class MouvementServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -36,18 +38,18 @@ public class EtatStockServlet extends HttpServlet {
             List<String> css = new ArrayList<>();
 
             List<String> js = new ArrayList<>();
-
             Utilisateur user = (Utilisateur) request.getSession().getAttribute("utilisateur");
             request.setAttribute("utilisateur", user);
-            
+
             int idSociety = user.getSociety().getIdSociety();
-            request.setAttribute("css", css);
-            request.setAttribute("js", js);
             List<Article> articles = (List<Article>) GenericDAO.getAll(Article.class, " where id_category in (select id_category from society_category_product where id_society = "+ idSociety +") and status = 1", null);
             request.setAttribute("articles", articles);
+            request.setAttribute("css", css);
+            request.setAttribute("js", js);
+
             // Page definition
-            request.setAttribute("title", "Article");
-            request.setAttribute("contentPage", "./pages/article/etatStock.jsp");
+            request.setAttribute("title", "Mouvement de stock");
+            request.setAttribute("contentPage", "./pages/article/mouvement.jsp");
 
             request.getRequestDispatcher("./template.jsp").forward(request, response);
         } catch (Exception e) {
@@ -59,39 +61,28 @@ public class EtatStockServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            LocalDate date = LocalDate.parse(request.getParameter("date"));
+            String date = request.getParameter("date");
             int idArticle = Integer.valueOf(request.getParameter("article"));
-            Article article = (Article) GenericDAO.findById(Article.class, idArticle, null);
-            EtatStock es = new EtatStock(article, date);
+            int mouvementType = Integer.valueOf(request.getParameter("movementType"));
+            double quantite = Double.valueOf(request.getParameter("quantity"));
+            double unitPrice = Double.valueOf(request.getParameter("unitPrice"));
 
-            request.setAttribute("article", article);
-            request.setAttribute("reste", es.getReste());
-            request.setAttribute("montant", es.getMontant());
-            request.setAttribute("prixUnitaire", es.getPUMP());
+            Article article;
+            article = (Article) GenericDAO.findById(Article.class, idArticle, null);
 
-            // All required assets
-            List<String> css = new ArrayList<>();
-
-            List<String> js = new ArrayList<>();
-
-            request.setAttribute("css", css);
-            request.setAttribute("js", js);
-            List<Article> articles = (List<Article>) GenericDAO.getAll(Article.class, " where status = 1", null);
-            request.setAttribute("articles", articles);
-            // Page definition
-            request.setAttribute("title", "Article");
-            request.setAttribute("contentPage", "./pages/article/etatStock.jsp");
-
-            Utilisateur user = (Utilisateur) request.getSession().getAttribute("utilisateur");
-            request.setAttribute("utilisateur", user);
-
-            request.getRequestDispatcher("./template.jsp").forward(request, response);
-
+            Mouvement move = new Mouvement(LocalDate.parse(date), article, mouvementType, quantite, unitPrice, 1);
+            GenericDAO.save(move, null);
+            response.sendRedirect("./mouvement");
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
     @Override
     public String getServletInfo() {
         return "Short description";

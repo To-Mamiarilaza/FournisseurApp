@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package servlet.article;
+package servlet.auth;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,15 +11,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
  * @author To Mamiarilaza
  */
-@WebServlet(name = "MovementServlet", urlPatterns = {"/movement"})
-public class MovementServlet extends HttpServlet {
+@WebServlet(name = "DeconnectionServlet", urlPatterns = {"/deconnection"})
+public class DeconnectionServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +36,10 @@ public class MovementServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet MovementServlet</title>");            
+            out.println("<title>Servlet DeconnectionServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet MovementServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DeconnectionServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,23 +57,8 @@ public class MovementServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            // All required assets
-            List<String> css = new ArrayList<>();
-
-            List<String> js = new ArrayList<>();
-
-            request.setAttribute("css", css);
-            request.setAttribute("js", js);
-
-            // Page definition
-            request.setAttribute("title", "Mouvement de stock");
-            request.setAttribute("contentPage", "./pages/article/movement.jsp");
-
-            request.getRequestDispatcher("./template.jsp").forward(request, response);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        request.getSession().invalidate();
+        response.sendRedirect("./login");
     }
 
     /**
