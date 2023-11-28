@@ -159,27 +159,27 @@ INSERT INTO mouvement (date_mouvement, id_article, type_mouvement, quantite, pri
        ('2023-11-22', 3, 1, 10, 5000, 11),
        ('2023-11-22', 1, 1, 30, 900, 11);
      
-CREATE SEQUENCE seq_supplier;
-CREATE TABLE supplier (
-    id_supplier integer primary key DEFAULT nextval('seq_supplier') not null,
-    name VARCHAR(50),
-    adress VARCHAR(100),
-    contact_responsable VARCHAR(50),
-    mail VARCHAR(50)
-);
-
-INSERT INTO supplier (name, adress, contact_responsable, mail) VALUES
-        ('Jumbo Score', 'Tanjombat', '+261345434598', 'JumboScore@gmail.com'),
-        ('Filatex', 'Ankadimbahoaka', '+261323567534', 'filatex@gmail.com');
+-- CREATE SEQUENCE seq_supplier;
+-- CREATE TABLE supplier (
+--     id_supplier integer primary key DEFAULT nextval('seq_supplier') not null,
+--     name VARCHAR(50),
+--     adress VARCHAR(100),
+--     contact_responsable VARCHAR(50),
+--     mail VARCHAR(50)
+-- );
+-- 
+-- INSERT INTO supplier (name, adress, contact_responsable, mail) VALUES
+--         ('Jumbo Score', 'Tanjombat', '+261345434598', 'JumboScore@gmail.com'),
+--         ('Filatex', 'Ankadimbahoaka', '+261323567534', 'filatex@gmail.com');
 
 CREATE SEQUENCE seq_proforma_request;
 CREATE TABLE proforma_request (
     id_proforma_request integer primary key DEFAULT nextval('seq_proforma_request') not null,
-    id_supplier int,
+    id_society int,
     mail_client VARCHAR(50),
     status int,
     date_sending DATE,
-    FOREIGN KEY (id_supplier) REFERENCES supplier(id_supplier)
+    FOREIGN KEY (id_society) REFERENCES society(id_society)
 );
 
 CREATE SEQUENCE seq_article_quantity;

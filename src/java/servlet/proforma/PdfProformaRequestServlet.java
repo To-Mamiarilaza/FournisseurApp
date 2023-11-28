@@ -78,10 +78,10 @@ public class PdfProformaRequestServlet extends HttpServlet {
             // Bien remplir ces données et tout doit aller automatiquement
             String dateSending = proformaRequest.getDateSendingFormatted();
             String underTitle1 = "Fournisseur";
-            String nameSupplier = proformaRequest.getSupplier().getName();
-            String adressSupplier = proformaRequest.getSupplier().getAdress();
-            String contactResponsable = proformaRequest.getSupplier().getContactResponsable();
-            String mailSupplier = proformaRequest.getSupplier().getMail();
+            String nameSupplier = proformaRequest.getSociety().getSociety();
+            String adressSupplier = proformaRequest.getSociety().getSocietyAdresse();
+            String contactResponsable = proformaRequest.getSociety().getResponsableContact();
+            String mailSupplier = proformaRequest.getSociety().getMail();
             String underTitle2 = "Client";
             String mailClient = proformaRequest.getMailClient();
           
@@ -173,7 +173,7 @@ public class PdfProformaRequestServlet extends HttpServlet {
                     contentStream.setFont(PDType1Font.HELVETICA, 9);
                     outil.writeText(contentStream, 30, dynamicY, proformaRequest.getArticleQuantity().get(i).getArticle().getDesignation());
                     outil.writeText(contentStream, 110, dynamicY, String.valueOf(proformaRequest.getArticleQuantity().get(i).getQuantity()));
-                    outil.writeText(contentStream, 160, dynamicY, "200");
+                    outil.writeText(contentStream, 160, dynamicY, String.valueOf(proformaRequest.getArticleQuantity().get(i).getQuantityDispo()));
                     outil.writeText(contentStream, 220, dynamicY, DisplayUtil.formatMoney(proformaRequest.getArticleQuantity().get(i).getArticle().getPrice(), "AR"));
                     outil.writeText(contentStream, 290, dynamicY, DisplayUtil.formatMoney(proformaRequest.getArticleQuantity().get(i).getArticle().getTva(), "%"));
                     outil.writeText(contentStream, 330, dynamicY, proformaRequest.getArticleQuantity().get(i).getMontantTVAString());
@@ -186,7 +186,6 @@ public class PdfProformaRequestServlet extends HttpServlet {
                     }
 
                     outil.writeText(contentStream, 280, dynamicY, "TOTAL");
-                    contentStream.setNonStrokingColor(0, 80, 0); // Vert sombre
                     outil.writeText(contentStream, 330, dynamicY, proformaRequest.getMontanTVATotalString());
                     outil.writeText(contentStream, 400, dynamicY, proformaRequest.getMontantHTTotalString());
                     outil.writeText(contentStream, 470, dynamicY, proformaRequest.getMontantTTCTotalString());
@@ -207,7 +206,10 @@ public class PdfProformaRequestServlet extends HttpServlet {
                     
                 }
 
-                /*// Pour le persistance de données
+                //Sauvegarder le proforma request
+                proformaRequest.save();
+
+                // Pour le persistance de données
                     String persistanceDirectory = getServletContext().getRealPath("").replace("build\\web\\", "web\\");
                     
                 // Exportation en pdf
@@ -218,7 +220,7 @@ public class PdfProformaRequestServlet extends HttpServlet {
                 //Envoye par email
                     String[] recipients = {proformaRequest.getMailClient()};
                     EmailSender.sendEmail(recipients, "Demande de proforma", "Voici le proforma contenant les articles detailles que vous avez demande", path);
-        */
+        
                 //Suppression des sessions
                     session.removeAttribute("proformaRequest");
                     

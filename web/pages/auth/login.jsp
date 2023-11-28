@@ -34,11 +34,11 @@
                 <form action="./login" method="post">
                   <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Nom d'utilisateur</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" name="username" value="INSSA Chalman">
+                    <input type="text" class="form-control" id="exampleInputEmail1" name="username" value="Score">
                   </div>
                   <div class="mb-4">
                     <label for="exampleInputPassword1" class="form-label">Mot de passe</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" name="password" value="chalman">
+                    <input type="password" class="form-control" id="exampleInputPassword1" name="password" value="score">
                   </div>
                   <div class="d-flex align-items-center justify-content-between mb-4">
                     <div class="form-check">

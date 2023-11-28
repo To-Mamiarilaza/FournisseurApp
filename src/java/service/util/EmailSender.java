@@ -29,8 +29,8 @@ public class EmailSender {
     
     public static void sendEmail(String[] recipients, String subject, String content, String filename) {
         // Sender's email and password
-        final String senderEmail = "mamiarilaza.to@gmail.com";
-        final String senderPassword = "kqlw korv hluf efwz";
+        final String senderEmail = "chalman@gmail.com";
+        final String senderPassword = "";
         
         // RecipientEmail
         final String recipientEmail = "mamiarilaza.to@gmail.com";

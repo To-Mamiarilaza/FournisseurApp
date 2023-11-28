@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import model.article.Article;
+import model.base.Utilisateur;
 import model.proforma.ProformaRequest;
 
 /**
@@ -64,12 +65,14 @@ public class ProformaRequestServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            //recuperer la session utilisateur
+            HttpSession session = request.getSession();
+            Utilisateur user = (Utilisateur)session.getAttribute("utilisateur");
             //Liste des articles
-            List<Article> articles = (List<Article>) GenericDAO.getAll(Article.class, null, null);
+            List<Article> articles = (List<Article>) GenericDAO.getAll(Article.class, " where id_category in (select id_category from society_category_product where id_society = "+ user.getSociety().getIdSociety() +") and status = 1", null);
             request.setAttribute("articles", articles);
             
             //Lancement du session demande proforma
-            HttpSession session = request.getSession();
             ProformaRequest proformaRequest = new ProformaRequest();
             session.setAttribute("proformaRequest", proformaRequest);
             
