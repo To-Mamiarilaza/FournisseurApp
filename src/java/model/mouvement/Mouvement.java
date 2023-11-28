@@ -51,8 +51,9 @@ public class Mouvement {
         return dateMouvement;
     }
 
-    public void setDateMouvement(LocalDate dateMouvement) {
-        this.dateMouvement = dateMouvement;
+    public void setDateMouvement(LocalDate dateMouvement) throws Exception {
+        if(dateMouvement == null) throw new Exception("date de mouvement null");
+        else this.dateMouvement = dateMouvement;
     }
 
     public Article getArticle() {
@@ -75,15 +76,17 @@ public class Mouvement {
         return quantite;
     }
 
-    public void setQuantite(double quantite) {
-        this.quantite = quantite;
+    public void setQuantite(double quantite) throws Exception {
+        if(quantite <= 0) throw new Exception("La quantité que vous avez entrez est invalid");
+        else this.quantite = quantite;
     }
 
     public double getPrixUnitaire() {
         return prixUnitaire;
     }
 
-    public void setPrixUnitaire(double prixUnitaire) {
+    public void setPrixUnitaire(double prixUnitaire) throws Exception {
+        if(prixUnitaire<=0) throw new Exception("Prix unitaire invalid");
         this.prixUnitaire = prixUnitaire;
     }
 
@@ -105,13 +108,13 @@ public class Mouvement {
         this.status = status;
     }
 
-    public Mouvement(LocalDate dateMouvement, Article article, int typeMouvement, double quantite, double prixUnitaire, int status) {
-        this.dateMouvement = dateMouvement;
-        this.article = article;
-        this.typeMouvement = typeMouvement;
-        this.quantite = quantite;
-        this.prixUnitaire = prixUnitaire;
-        this.status = status;
+    public Mouvement(LocalDate dateMouvement, Article article, int typeMouvement, double quantite, double prixUnitaire, int status) throws Exception {
+        this.setDateMouvement(dateMouvement);
+        this.setArticle(article);
+        this.setTypeMouvement(typeMouvement);
+        this.setQuantite(quantite);
+        this.setPrixUnitaire(prixUnitaire);
+        this.setStatus(status);
     }
 
     public Mouvement() {

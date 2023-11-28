@@ -42,7 +42,7 @@ public class MouvementServlet extends HttpServlet {
             request.setAttribute("utilisateur", user);
 
             int idSociety = user.getSociety().getIdSociety();
-            List<Article> articles = (List<Article>) GenericDAO.getAll(Article.class, " where id_category in (select id_category from society_category_product where id_society = "+ idSociety +") and status = 1", null);
+            List<Article> articles = (List<Article>) GenericDAO.getAll(Article.class, " where id_category in (select id_category from society_category_product where id_society = " + idSociety + ") and status = 1", null);
             request.setAttribute("articles", articles);
             request.setAttribute("css", css);
             request.setAttribute("js", js);
@@ -71,10 +71,17 @@ public class MouvementServlet extends HttpServlet {
             article = (Article) GenericDAO.findById(Article.class, idArticle, null);
 
             Mouvement move = new Mouvement(LocalDate.parse(date), article, mouvementType, quantite, unitPrice, 1);
-            GenericDAO.save(move, null);
-            response.sendRedirect("./mouvement");
+            try {
+                GenericDAO.save(move, null);
+                response.sendRedirect("./mouvement");
+            } catch (Exception e) {
+                e.printStackTrace();
+                request.setAttribute("error", e.getMessage());
+                response.sendRedirect("./mouvement");
+            }
         } catch (Exception ex) {
-            ex.printStackTrace();
+            request.setAttribute("error", ex.getMessage());
+            response.sendRedirect("./mouvement");
         }
     }
 

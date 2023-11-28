@@ -58,7 +58,7 @@ public class ArticleServlet extends HttpServlet {
             request.setAttribute("js", js);
             int idSociety = user.getSociety().getIdSociety();
             
-            List<Article> articles = (List<Article>) GenericDAO.getAll(Article.class, " where id_category in (select id_category from society_category_product where id_society = "+ idSociety +") and status = 1", null);
+            List<Article> articles = (List<Article>) GenericDAO.getAll(Article.class, " where id_category in (select id_category from society_category_product where id_society = "+ idSociety +") and status = 1 order by id_article ", null);
             List<Category> categorys = (List<Category>) GenericDAO.getAll(Category.class, " where id_category in (select id_category from society_category_product where id_society = "+ idSociety +") and status = 1", null);
             request.setAttribute("categories", categorys);
             List<Unity> unitys = (List<Unity>) GenericDAO.getAll(Unity.class, null, null);

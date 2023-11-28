@@ -50,8 +50,6 @@ ALTER SEQUENCE seq_society_category_product RESTART WITH 1;
 INSERT INTO society_category_product (id_society, id_category) VALUES
 (1, 1),
 (1, 3),
-(1, 2),
-(2, 1),
 (2, 2),
 (3, 4);
 
@@ -69,12 +67,9 @@ CREATE TABLE utilisateur (
 );
 
 ALTER SEQUENCE seq_utilisateur RESTART WITH 1;
-INSERT INTO utilisateur(id_society, username, password, mail, status, photo ) VALUES (1, 'INSSA Chalman', 'chalman', 'inssa.chalman@gmail.com', 1, 'chalman.png');
-INSERT INTO utilisateur(id_society, username, password, mail, status, photo ) VALUES (1, 'To MAMIARILAZA', 'to', 'mamiarilaza.to@gmail.com', 1, 'to.png');
-INSERT INTO utilisateur(id_society, username, password, mail, status, photo ) VALUES (2, 'Fy Michael', 'fy', 'fy.michael@gmail.com', 1, 'fy.png');
-INSERT INTO utilisateur(id_society, username, password, mail, status, photo ) VALUES (2, 'Finoana RAKOTO', 'finoana', 'finoanaRAKOTO@gmail.com', 1, 'finoana.png');
-INSERT INTO utilisateur(id_society, username, password, mail, status, photo ) VALUES (3, 'Solo RATSIVAHINY', 'solo', 'soloRATSIVAHINY@gmail.com', 1, 'solo.png');
-INSERT INTO utilisateur(id_society, username, password, mail, status, photo ) VALUES (3, 'Mialy RIANTSOA', 'mialy', 'mialy.RIANTSOA@gmail.com', 1, 'mialy.png');
+INSERT INTO utilisateur(id_society, username, password, mail, status, photo ) VALUES (1, 'Score', 'score', 'score@gmail.com', 1, 'score.png');
+INSERT INTO utilisateur(id_society, username, password, mail, status, photo ) VALUES (2, 'Hazo vato', 'hazovato', 'hazovato.to@gmail.com', 1, 'hazovato.png');
+INSERT INTO utilisateur(id_society, username, password, mail, status, photo ) VALUES (3, 'Toyota', 'toyota', 'toyota.michael@gmail.com', 1, 'toyota.png');
 
 
 CREATE SEQUENCE seq_unity;

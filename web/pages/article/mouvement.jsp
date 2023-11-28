@@ -8,6 +8,9 @@
         <div class="card col-md-6">
             <div class="card-body">
                 <h5 class="card-title fw-semibold mb-4">Nouveau mouvement de stock</h5>
+                <% if (request.getAttribute("error") != null) { %>
+                <h6 class="card-title fw-semibold mb-4"> <%= (String) request.getAttribute("error") %> </h6>
+                <% } %>
                 <form action="./mouvement" class="form" method="post">
                     <div class="form-group mb-2">
                         <label for="form-label">Date</label>
