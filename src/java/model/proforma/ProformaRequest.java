@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import model.article.Article;
+import model.base.Society;
 import service.util.DisplayUtil;
 
 /**
@@ -21,8 +22,8 @@ import service.util.DisplayUtil;
 public class ProformaRequest {
     @DBField(name = "id_proforma_request", isPrimaryKey = true)
     int idProformaRequest;
-    @DBField(name = "id_supplier",isForeignKey = true)
-    Supplier supplier;
+    @DBField(name = "id_society",isForeignKey = true)
+    Society society;
     @DBField(name = "mail_client")
     String mailClient;
     @DBField(name = "status")
@@ -40,13 +41,13 @@ public class ProformaRequest {
         this.idProformaRequest = idProformaRequest;
     }
 
-    
-    public Supplier getSupplier() {
-        return supplier;
+    public Society getSociety() {
+        return society;
     }
-    public void setSupplier(Supplier supplier) {
-        this.supplier = supplier;
+    public void setSociety(Society society) {
+        this.society = society;
     }
+
     
     public String getMailClient() {
         return mailClient;
@@ -81,17 +82,17 @@ public class ProformaRequest {
     public ProformaRequest() {
     }
 
-    public ProformaRequest(int idProformaRequest, Supplier supplier, String mailClient, int status, LocalDate dateSending) {
+    public ProformaRequest(int idProformaRequest, Society society, String mailClient, int status, LocalDate dateSending) {
         this.idProformaRequest = idProformaRequest;
         this.mailClient = mailClient;
-        this.supplier = supplier;
+        this.society = society;
         this.status = status;
         this.dateSending = dateSending;
     }
 
-    public ProformaRequest(Supplier supplier, String mailClient, int status, LocalDate dateSending) {
+    public ProformaRequest(Society society, String mailClient, int status, LocalDate dateSending) {
         this.mailClient = mailClient;
-        this.supplier = supplier;
+        this.society = society;
         this.status = status;
         this.dateSending = dateSending;
     }
@@ -221,7 +222,6 @@ public class ProformaRequest {
     
     //Sauvegarder la demande proforma
     public void save() throws Exception {
-        System.out.println("Supplier = "+this.getSupplier().getIdSupplier());
         GenericDAO.save(this, null);
         for(int i = 0; i < this.getArticleQuantity().size(); i++) {
             this.getArticleQuantity().get(i).setProformaRequest(this);

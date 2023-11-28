@@ -12,10 +12,10 @@ ProformaRequest proformaRequest = (ProformaRequest)request.getAttribute("proform
         </div>
         <div class="col-md-6">
           <h5 class="card-title fw-semibold mb-4">Fournisseur</h5>
-          <p class="mb-1">Nom : <strong class="mx-2"><%=proformaRequest.getSupplier().getName() %></strong></p>
-          <p class="mb-1">Adresse : <strong class="mx-2"><%=proformaRequest.getSupplier().getAdress() %></strong></p>
-          <p class="mb-1">Contact du responsable : <strong class="mx-2"><%=proformaRequest.getSupplier().getContactResponsable() %></strong></p>
-          <p class="mb-1">Mail : <strong class="mx-2"><%=proformaRequest.getSupplier().getMail() %></strong></p>
+          <p class="mb-1">Nom : <strong class="mx-2"><%=proformaRequest.getSociety().getSociety() %></strong></p>
+          <p class="mb-1">Adresse : <strong class="mx-2"><%=proformaRequest.getSociety().getSocietyAdresse() %></strong></p>
+          <p class="mb-1">Contact du responsable : <strong class="mx-2"><%=proformaRequest.getSociety().getResponsableContact() %></strong></p>
+          <p class="mb-1">Mail : <strong class="mx-2"><%=proformaRequest.getSociety().getMail() %></strong></p>
         </div>
         <div class="col-md-6">
           <h5 class="card-title fw-semibold mb-4">Client</h5>
@@ -39,7 +39,7 @@ ProformaRequest proformaRequest = (ProformaRequest)request.getAttribute("proform
             <% for(int i = 0; i < proformaRequest.getArticleQuantity().size(); i++) { %>
               <td class="py-2"><%=proformaRequest.getArticleQuantity().get(i).getArticle().getDesignation() %></td>
               <td class="py-2"><%=proformaRequest.getArticleQuantity().get(i).getQuantity() %></td>
-              <td class="py-2">200</td>
+              <td class="py-2"><%=proformaRequest.getArticleQuantity().get(i).getQuantityDispo() %></td>
               <td class="py-2"><%=proformaRequest.getArticleQuantity().get(i).getUnitPriceString() %></td>
               <td class="py-2"><%=proformaRequest.getArticleQuantity().get(i).getTVAString() %></td>
               <td class="py-2"><%=proformaRequest.getArticleQuantity().get(i).getMontantTVAString() %></td>

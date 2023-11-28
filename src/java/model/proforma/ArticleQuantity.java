@@ -6,7 +6,9 @@ package model.proforma;
 
 import generalisation.annotations.DBField;
 import generalisation.annotations.DBTable;
+import java.time.LocalDate;
 import model.article.Article;
+import model.mouvement.EtatStock;
 import service.util.DisplayUtil;
 
 /**
@@ -101,6 +103,13 @@ public class ArticleQuantity {
     
     public String getTVAString() {
         return DisplayUtil.formatMoney(this.getArticle().getTva(), "%");
+    }
+    
+    public double getQuantityDispo() throws Exception {
+        EtatStock es = new EtatStock();
+        es.setArticle(this.getArticle());
+        es.setDate(LocalDate.now());
+        return es.getReste();
     }
 ///Constructors
     public ArticleQuantity() {

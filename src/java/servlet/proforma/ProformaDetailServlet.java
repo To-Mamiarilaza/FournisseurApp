@@ -16,6 +16,8 @@ import jakarta.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import model.base.Society;
+import model.base.Utilisateur;
 import model.proforma.ProformaRequest;
 import model.proforma.Supplier;
 
@@ -105,8 +107,9 @@ public class ProformaDetailServlet extends HttpServlet {
             ProformaRequest proformaRequest = (ProformaRequest)session.getAttribute("proformaRequest");
             proformaRequest.setMailClient(mail);
             proformaRequest.setDateSending(LocalDate.now());
-            Supplier supplier = GenericDAO.findById(Supplier.class, 1, null);
-            proformaRequest.setSupplier(supplier);
+            Utilisateur user = (Utilisateur)session.getAttribute("utilisateur");
+            Society society = user.getSociety();
+            proformaRequest.setSociety(society);
             proformaRequest.setStatus(1);
             doGet(request, response);
         } catch(Exception e) {
