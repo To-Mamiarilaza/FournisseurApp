@@ -4,6 +4,7 @@
  */
 package servlet.proforma;
 
+import generalisation.GenericDAO.GenericDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,8 +12,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import model.proforma.ProformaRequest;
+import model.proforma.Supplier;
 
 /**
  *
@@ -60,6 +65,10 @@ public class ProformaDetailServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            //Recuperation du session proforma
+            HttpSession session = request.getSession();
+            ProformaRequest proformaRequest = (ProformaRequest)session.getAttribute("proformaRequest");
+            
             // All required assets
             List<String> css = new ArrayList<>();
 
@@ -71,6 +80,7 @@ public class ProformaDetailServlet extends HttpServlet {
             // Page definition
             request.setAttribute("title", "Detail du proforma");
             request.setAttribute("contentPage", "./pages/proforma/proformaDetail.jsp");
+            request.setAttribute("proformaRequest", proformaRequest);
 
             request.getRequestDispatcher("./template.jsp").forward(request, response);
         } catch (Exception e) {
@@ -89,7 +99,20 @@ public class ProformaDetailServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            String mail = request.getParameter("email");
+            HttpSession session = request.getSession();
+            ProformaRequest proformaRequest = (ProformaRequest)session.getAttribute("proformaRequest");
+            proformaRequest.setMailClient(mail);
+            proformaRequest.setDateSending(LocalDate.now());
+            Supplier supplier = GenericDAO.findById(Supplier.class, 1, null);
+            proformaRequest.setSupplier(supplier);
+            proformaRequest.setStatus(1);
+            doGet(request, response);
+        } catch(Exception e) {
+            request.setAttribute("error", e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     /**

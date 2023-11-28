@@ -4,7 +4,6 @@
  */
 package servlet.proforma;
 
-import generalisation.GenericDAO.GenericDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,17 +12,15 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
-import model.article.Article;
+import model.proforma.ArticleQuantity;
 import model.proforma.ProformaRequest;
 
 /**
  *
- * @author To Mamiarilaza
+ * @author chalman
  */
-@WebServlet(name = "ProformaRequestServlet", urlPatterns = {"/proforma-request"})
-public class ProformaRequestServlet extends HttpServlet {
+@WebServlet(name = "ProformaArticleInsertionServlet", urlPatterns = {"/ProformaArticleInsertion"})
+public class ProformaArticleInsertionServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +39,10 @@ public class ProformaRequestServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ProformaRequest</title>");            
+            out.println("<title>Servlet ProformaArticleInsertionServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ProformaRequest at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ProformaArticleInsertionServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,33 +60,7 @@ public class ProformaRequestServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            //Liste des articles
-            List<Article> articles = (List<Article>) GenericDAO.getAll(Article.class, null, null);
-            request.setAttribute("articles", articles);
-            
-            //Lancement du session demande proforma
-            HttpSession session = request.getSession();
-            ProformaRequest proformaRequest = new ProformaRequest();
-            session.setAttribute("proformaRequest", proformaRequest);
-            
-            // All required assets
-            List<String> css = new ArrayList<>();
-
-            List<String> js = new ArrayList<>();
-            js.add("./assets/js/proforma/proforma.js");
-
-            request.setAttribute("css", css);
-            request.setAttribute("js", js);
-
-            // Page definition
-            request.setAttribute("title", "Demandes de proformas");
-            request.setAttribute("contentPage", "./pages/proforma/proformaRequest.jsp");
-
-            request.getRequestDispatcher("./template.jsp").forward(request, response);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -103,7 +74,26 @@ public class ProformaRequestServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+            response.setContentType("text/plain;charset=UTF-8");
+          
+        PrintWriter out = response.getWriter();
+        try {
+            String article = request.getParameter("article");
+            String quantity = request.getParameter("quantity");
+            System.out.println("Tongasoa = "+article);
+            HttpSession session = request.getSession();
+            ProformaRequest proformaRequest = (ProformaRequest)session.getAttribute("proformaRequest");
+            ArticleQuantity articleQuantity = proformaRequest.addArticleQuantity(article, quantity);
+            proformaRequest.displayProforma();
+            if(articleQuantity.getIsExist() == false) {
+                out.print("{\"code\":\""+articleQuantity.getArticle().getCode()+"\", \"article\":\""+articleQuantity.getArticle().getDesignation()+"\", \"quantity\":\""+articleQuantity.getQuantity()+"\", \"exist\": false}");
+            } else {
+                out.print("{\"code\":\""+articleQuantity.getArticle().getCode()+"\", \"article\":\""+articleQuantity.getArticle().getDesignation()+"\", \"quantity\":\""+articleQuantity.getQuantity()+"\", \"exist\": true}");
+            }
+        } catch(Exception e) {
+            request.setAttribute("error", e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     /**

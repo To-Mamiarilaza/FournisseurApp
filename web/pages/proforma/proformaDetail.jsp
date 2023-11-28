@@ -1,21 +1,25 @@
+<%@page import=" model.proforma.ProformaRequest "%>
 <!--  Header End -->
+<% if(request.getAttribute("proformaRequest") != null) { 
+ProformaRequest proformaRequest = (ProformaRequest)request.getAttribute("proformaRequest");
+%>
 <div class="container-fluid">
   <div class="card">
     <div class="card-body">
       <div class="row">
         <div class="col-md-12">
-          <p>12-12-2023</p>
+          <p><%=proformaRequest.getDateSendingFormatted() %></p>
         </div>
         <div class="col-md-6">
           <h5 class="card-title fw-semibold mb-4">Fournisseur</h5>
-          <p class="mb-1">Nom : <strong class="mx-2">Leader Price</strong></p>
-          <p class="mb-1">Adresse : <strong class="mx-2">Tanjombato</strong></p>
-          <p class="mb-1">Contact du responsable : <strong class="mx-2">+261 34 236 58</strong></p>
-          <p class="mb-1">Mail : <strong class="mx-2">leaderPrice@gmail.com</strong></p>
+          <p class="mb-1">Nom : <strong class="mx-2"><%=proformaRequest.getSupplier().getName() %></strong></p>
+          <p class="mb-1">Adresse : <strong class="mx-2"><%=proformaRequest.getSupplier().getAdress() %></strong></p>
+          <p class="mb-1">Contact du responsable : <strong class="mx-2"><%=proformaRequest.getSupplier().getContactResponsable() %></strong></p>
+          <p class="mb-1">Mail : <strong class="mx-2"><%=proformaRequest.getSupplier().getMail() %></strong></p>
         </div>
         <div class="col-md-6">
           <h5 class="card-title fw-semibold mb-4">Client</h5>
-          <p class="mb-1">Mail : <strong class="mx-2">bongoHuile@gmail.com</strong></p>
+          <p class="mb-1">Mail : <strong class="mx-2"><%=proformaRequest.getMailClient() %></strong></p>
         </div>
         <table class="table mt-5">
           <thead>
@@ -32,44 +36,35 @@
           </thead>
           <tbody>
             <tr>
-              <td class="py-2">Cache bouche</td>
-              <td class="py-2">30</td>
+            <% for(int i = 0; i < proformaRequest.getArticleQuantity().size(); i++) { %>
+              <td class="py-2"><%=proformaRequest.getArticleQuantity().get(i).getArticle().getDesignation() %></td>
+              <td class="py-2"><%=proformaRequest.getArticleQuantity().get(i).getQuantity() %></td>
               <td class="py-2">200</td>
-              <td class="py-2">20 000 AR</td>
-              <td class="py-2">20 %</td>
-              <td class="py-2">12 500 AR</td>
-              <td class="py-2">600 000 AR</td>
-              <td class="py-2">765 000 AR</td>
+              <td class="py-2"><%=proformaRequest.getArticleQuantity().get(i).getUnitPriceString() %></td>
+              <td class="py-2"><%=proformaRequest.getArticleQuantity().get(i).getTVAString() %></td>
+              <td class="py-2"><%=proformaRequest.getArticleQuantity().get(i).getMontantTVAString() %></td>
+              <td class="py-2"><%=proformaRequest.getArticleQuantity().get(i).getMontantHTString() %></td>
+              <td class="py-2"><%=proformaRequest.getArticleQuantity().get(i).getMontantTTCString() %></td>
             </tr>
+            <% } %>
             <tr>
-              <td class="py-2">Cache bouche</td>
-              <td class="py-2">30</td>
-              <td class="py-2">200</td>
-              <td class="py-2">20 000 AR</td>
-              <td class="py-2">20 %</td>
-              <td class="py-2">12 500 AR</td>
-              <td class="py-2">600 000 AR</td>
-              <td class="py-2">765 000 AR</td>
-            </tr>
-
-            <!-- TOTAL ROW -->
-            <tr class="table-primary">
-              <td class="py-2"></td>
-              <td class="py-2"></td>
-              <td class="py-2"></td>
-              <td class="py-2"></td>
-              <td class="py-2"></td>
-              <td class="py-2">120 500 AR</td>
-              <td class="py-2">600 000 AR</td>
-              <td class="py-2">765 000 AR</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="py-2">TOTAL</td>
+                <td class="py-2"><%= proformaRequest.getMontanTVATotalString() %></td>
+                <td class="py-2"><%= proformaRequest.getMontantHTTotalString() %></td>
+                <td class="py-2"><%= proformaRequest.getMontantTTCTotalString() %></td>
             </tr>
           </tbody>
         </table>
-        <h6 class="mt-4">Arrête le présent proforma à  la somme de : <strong>TRENTE MILLE DEUX CENT ARIARY</strong></h6>
+        <h6 class="mt-4">Arrête le présent proforma à  la somme de : <strong><%=proformaRequest.getMontantTotalLetter() %></strong></h6>
         <div class="mt-3">
-          <a href="" class="btn btn-primary">Envoyer le proforma</a>
+          <a href="./PdfProformaRequest" class="btn btn-primary">Envoyer le proforma</a>
         </div>
       </div>
     </div>
   </div>
 </div>
+<% } %>
