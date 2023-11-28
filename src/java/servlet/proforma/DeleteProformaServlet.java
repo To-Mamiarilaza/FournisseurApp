@@ -4,7 +4,6 @@
  */
 package servlet.proforma;
 
-import generalisation.GenericDAO.GenericDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,17 +12,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
-import model.article.Article;
 import model.proforma.ProformaRequest;
 
 /**
  *
- * @author To Mamiarilaza
+ * @author chalman
  */
-@WebServlet(name = "ProformaRequestServlet", urlPatterns = {"/proforma-request"})
-public class ProformaRequestServlet extends HttpServlet {
+@WebServlet(name = "DeleteProformaServlet", urlPatterns = {"/DeleteProforma"})
+public class DeleteProformaServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +38,10 @@ public class ProformaRequestServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ProformaRequest</title>");            
+            out.println("<title>Servlet DeleteProformaServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ProformaRequest at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DeleteProformaServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,31 +59,17 @@ public class ProformaRequestServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         try {
-            //Liste des articles
-            List<Article> articles = (List<Article>) GenericDAO.getAll(Article.class, null, null);
-            request.setAttribute("articles", articles);
+            String code = request.getParameter("code");
             
-            //Lancement du session demande proforma
             HttpSession session = request.getSession();
-            ProformaRequest proformaRequest = new ProformaRequest();
-            session.setAttribute("proformaRequest", proformaRequest);
+            ProformaRequest pr = (ProformaRequest) session.getAttribute("proformaRequest");
+            pr.deleteRequest(code);
+            pr.displayProforma();
             
-            // All required assets
-            List<String> css = new ArrayList<>();
-
-            List<String> js = new ArrayList<>();
-            js.add("./assets/js/proforma/proforma.js");
-
-            request.setAttribute("css", css);
-            request.setAttribute("js", js);
-
-            // Page definition
-            request.setAttribute("title", "Demandes de proformas");
-            request.setAttribute("contentPage", "./pages/proforma/proformaRequest.jsp");
-
-            request.getRequestDispatcher("./template.jsp").forward(request, response);
         } catch (Exception e) {
+            request.setAttribute("error", e.getMessage());
             e.printStackTrace();
         }
     }
